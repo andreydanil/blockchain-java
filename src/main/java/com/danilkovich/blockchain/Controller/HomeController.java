@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 
 @RestController
@@ -39,16 +41,23 @@ public class HomeController {
      */
     @RequestMapping("/create/{data}")
     public String create(@PathVariable("data") String data) {
-        String hash = blockchain.get(blockchain.size()-1).hash;
-
-        if(hash.isEmpty()) {
+        String hash = null;
+        if(blockchain.size() != 0) {
+            hash = blockchain.get(blockchain.size()-1).hash;
+        } else {
             hash = "0";
         }
 
-        blockchain.add(new Block(data, hash));
-        System.out.println("Mining block: " +hash + ", counter: " + counter + "... ");
-        blockchain.get(counter).mineBlock(difficulty);
-        counter++;
+        try{
+            blockchain.add(new Block(data, hash));
+            System.out.println("Mining block: " +hash + ", counter: " + counter + "... ");
+            blockchain.get(counter).mineBlock(difficulty);
+            counter++;
+        } catch (Exception e) {
+            StringWriter sw = new StringWriter();
+            e.printStackTrace(new PrintWriter(sw));
+        }
+
 
         return "Creating block " + hash;
     }

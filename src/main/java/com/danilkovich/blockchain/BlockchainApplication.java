@@ -15,26 +15,7 @@ public class BlockchainApplication {
     public static int difficulty = 1;
 
     public static void main(String[] args) {
-
         SpringApplication.run(BlockchainApplication.class, args);
-
-        //add our blocks to the blockchain ArrayList
-        /*
-
-
-        blockchain.add(new Block("Yo im the second block",blockchain.get(blockchain.size()-1).hash));
-        System.out.println("Trying to Mine block 2... ");
-        blockchain.get(1).mineBlock(difficulty);
-
-        blockchain.add(new Block("Hey im the third block",blockchain.get(blockchain.size()-1).hash));
-        System.out.println("Trying to Mine block 3... ");
-        blockchain.get(2).mineBlock(difficulty);
-
-        System.out.println("\nBlockchain is Valid: " + isChainValid());
-
-
-        */
-
     }
 
     public static Boolean isChainValid() {
